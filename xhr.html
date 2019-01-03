@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>XMLHTTPREQUEST API</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        p {
+            font-size: 1.2em;
+            font-family: Arial, Helvetica, sans-serif;
+            border: solid grey 0.2px;
+            padding: 10px;
+            margin: -1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table id="output"></table>
+
+    <script>
+        var output = document.getElementById("output");
+
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                var json = JSON.parse(ajax.responseText);
+                var data = json;
+
+                var ioName = "<p><b>Nome: </b>" + data.name;
+                var ioHeight = "<p><b>Altura: </b>" + data.height;
+                var ioMass = "<p><b>Peso: </b>" + data.mass;
+                var ioHair_color = "<p><b>Cor do cabelo: </b>" + data.hair_color;
+                var ioSkin_color = "<p><b>Roupa: </b>" + data.skin_color;
+
+                output.innerHTML = ioName + ioHeight + ioMass + ioHair_color + ioSkin_color;
+
+                console.log(json);
+            }
+        };
+
+        ajax.open("GET", "https://swapi.co/api/people/1/", true);
+        ajax.send();
+    </script>
+
+
+</body>
+
+</html>
